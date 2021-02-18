@@ -11,6 +11,7 @@ const schema = gql`
   type Query {
     me: User
     user(id: ID!): User
+    users: [User!]
   }
 
   type User {
@@ -39,6 +40,9 @@ const resolvers = {
     },
     user: (parent, { id }) => {
       return users[id];
+    },
+    users: () => {
+      return Object.values(users);
     },
   },
 };
