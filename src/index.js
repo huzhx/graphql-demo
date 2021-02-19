@@ -25,6 +25,7 @@ const schema = gql`
   type Message {
     id: ID!
     text: String!
+    user: User!
   }
 `;
 
@@ -43,10 +44,12 @@ const messages = {
   1: {
     id: '1',
     text: 'Hello world',
+    userId: '1',
   },
   2: {
     id: '2',
     text: 'By world',
+    userId: '2',
   },
 };
 
@@ -70,6 +73,11 @@ const resolvers = {
   },
   User: {
     username: (user) => user.username,
+  },
+  Message: {
+    user: (message) => {
+      return users[message.userId];
+    },
   },
 };
 
